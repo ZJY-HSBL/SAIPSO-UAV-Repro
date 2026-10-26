@@ -1,0 +1,440 @@
+{
+  "provenance": "Independent civilian terrain extension, NOT original-paper results",
+  "budget": 500,
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111
+  ],
+  "config": {
+    "population": 20,
+    "memory": 10,
+    "iterations": 160,
+    "c1": 2.05,
+    "c2": 2.05,
+    "inertia_max": 0.9,
+    "inertia_min": 0.4,
+    "velocity_max": 20.0,
+    "stagnation_iterations": 2,
+    "stagnation_epsilon": 0.0001,
+    "sa_temperature": 2000.0,
+    "sa_terminal": 10.0,
+    "sa_cooling": 0.8,
+    "sa_trials_per_level": 2,
+    "sa_max_levels": 24,
+    "sa_perturbation": 0.08,
+    "memory_injections": 2,
+    "immune_beta": 0.5
+  },
+  "scenarios": {
+    "reference": {
+      "name": "civilian-mountains",
+      "hills": [
+        [
+          76.0,
+          92.0,
+          170.0,
+          23.0
+        ],
+        [
+          137.0,
+          135.0,
+          380.0,
+          17.0
+        ]
+      ],
+      "zones": [
+        [
+          62.0,
+          145.0,
+          16.0
+        ],
+        [
+          155.0,
+          52.0,
+          18.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    },
+    "holdout": {
+      "name": "held-out-terrain",
+      "hills": [
+        [
+          53.0,
+          105.0,
+          195.0,
+          21.0
+        ],
+        [
+          111.0,
+          122.0,
+          275.0,
+          26.0
+        ],
+        [
+          157.0,
+          150.0,
+          145.0,
+          19.0
+        ]
+      ],
+      "zones": [
+        [
+          47.0,
+          53.0,
+          20.0
+        ],
+        [
+          150.0,
+          64.0,
+          25.0
+        ],
+        [
+          128.0,
+          165.0,
+          14.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    }
+  },
+  "analyses": [
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "algorithm": "pso",
+      "n": 12,
+      "mean": 1.0772655956387363,
+      "std": 0.06678664474047744,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "algorithm": "ipso",
+      "n": 12,
+      "mean": 1.1241165438551286,
+      "std": 0.08395351715025591,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "algorithm": "saipso-raw",
+      "n": 12,
+      "mean": 1.1636393803970118,
+      "std": 0.13360066269902265,
+      "feasible_count": 1
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "algorithm": "saipso-cal",
+      "n": 12,
+      "mean": 1.1001870657787725,
+      "std": 0.062294159433533884,
+      "feasible_count": 1
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "comparison": "ipso-pso",
+      "mean_diff": 0.04685094821639205,
+      "ci95": [
+        0.012564218274115137,
+        0.0773281008732972
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "comparison": "saipso-raw-pso",
+      "mean_diff": 0.08637378475827535,
+      "ci95": [
+        0.03174742133950796,
+        0.15741274991854282
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "reference",
+      "task": "fast",
+      "comparison": "saipso-cal-pso",
+      "mean_diff": 0.02292147014003622,
+      "ci95": [
+        -0.01820666579531071,
+        0.06404177285010178
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "algorithm": "pso",
+      "n": 12,
+      "mean": 0.2171455047698693,
+      "std": 0.053767451397918324,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "algorithm": "ipso",
+      "n": 12,
+      "mean": 0.20494549501454914,
+      "std": 0.04189501278664319,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "algorithm": "saipso-raw",
+      "n": 12,
+      "mean": 0.22130211325665672,
+      "std": 0.038414952456412625,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "algorithm": "saipso-cal",
+      "n": 12,
+      "mean": 0.21006447279535934,
+      "std": 0.03938924622414921,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "comparison": "ipso-pso",
+      "mean_diff": -0.012200009755320122,
+      "ci95": [
+        -0.028278686559530416,
+        0.0016500671251558799
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "comparison": "saipso-raw-pso",
+      "mean_diff": 0.004156608486787415,
+      "ci95": [
+        -0.010418808280639172,
+        0.020226651385301386
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "reference",
+      "task": "safe",
+      "comparison": "saipso-cal-pso",
+      "mean_diff": -0.007081031974509942,
+      "ci95": [
+        -0.025291740147579206,
+        0.006803370563859483
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "algorithm": "pso",
+      "n": 12,
+      "mean": 1.2607094413247932,
+      "std": 0.08268016212597869,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "algorithm": "ipso",
+      "n": 12,
+      "mean": 1.3087395075946264,
+      "std": 0.09277160820428848,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "algorithm": "saipso-raw",
+      "n": 12,
+      "mean": 1.367043330161448,
+      "std": 0.11553684280591037,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "algorithm": "saipso-cal",
+      "n": 12,
+      "mean": 1.3142415987606522,
+      "std": 0.09892545974736293,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "comparison": "ipso-pso",
+      "mean_diff": 0.04803006626983327,
+      "ci95": [
+        0.00042589719242130237,
+        0.09750619222792377
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "comparison": "saipso-raw-pso",
+      "mean_diff": 0.10633388883665468,
+      "ci95": [
+        0.05066781047652621,
+        0.15875639665823965
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "fast",
+      "comparison": "saipso-cal-pso",
+      "mean_diff": 0.053532157435858894,
+      "ci95": [
+        -0.0035076967033993225,
+        0.10173818267354288
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "algorithm": "pso",
+      "n": 12,
+      "mean": 0.22290875035544921,
+      "std": 0.02169962351677968,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "algorithm": "ipso",
+      "n": 12,
+      "mean": 0.21464541393473646,
+      "std": 0.013005216386130761,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "algorithm": "saipso-raw",
+      "n": 12,
+      "mean": 0.2277570235637475,
+      "std": 0.015874954187918653,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "algorithm": "saipso-cal",
+      "n": 12,
+      "mean": 0.219894401956948,
+      "std": 0.011794955647009123,
+      "feasible_count": 0
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "comparison": "ipso-pso",
+      "mean_diff": -0.008263336420712778,
+      "ci95": [
+        -0.0196324326308723,
+        0.0013752585346131778
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "comparison": "saipso-raw-pso",
+      "mean_diff": 0.00484827320829827,
+      "ci95": [
+        -0.008075093328795205,
+        0.01785607548306892
+      ],
+      "paired_seeds": 12
+    },
+    {
+      "scenario": "holdout",
+      "task": "safe",
+      "comparison": "saipso-cal-pso",
+      "mean_diff": -0.0030143483985011856,
+      "ci95": [
+        -0.014117526635581534,
+        0.007699348011125029
+      ],
+      "paired_seeds": 12
+    }
+  ],
+  "limitations": [
+    "Temperature calibration is an original adaptation, not from source paper",
+    "Fitness penalties are soft; no guarantee of continuous feasibility",
+    "Dense feasibility is sampled, not formal safety verification",
+    "Synthetic terrain, not original paper geometry or real flight data",
+    "Exploratory small-sample bootstrap, not confirmatory inference"
+  ]
+}

@@ -1,58 +1,103 @@
 # SAIPSO-UAV-Repro
 
-**[中文](#中文) | [English](#english)**
+**[中文](#中文说明) | [English](#english)**
 
-Paper-informed SA-IPSO optimizer reconstruction with reproducible **civilian 3-D terrain / restricted-airspace route planning**. **This is an independent benchmark, not the authors' original MATLAB code or an exact numerical recreation of the paper.**
+Reproducible, paper-informed implementation of simulated annealing–immune particle swarm optimization (SA-IPSO), evaluated using a **civilian 3-D terrain/airspace route-planning benchmark**. This repository focuses on the optimizer's mechanisms, not military air-defense evasion.
 
-## 中文
+> **Reproduction scope:** This is a *reconstruction / independent benchmark*, not the authors' original MATLAB implementation and not an exact reproduction of their published figures or numerical fitness values. The article does not disclose its complete map, fitness penalty realization, particle/archive replacement procedure, or simulated-annealing neighborhood. Those choices are explicitly specified here.
 
-**参考论文：** 范伟伦，《基于 SA-IPSO 融合算法的无人机航路规划》，《舰船电子工程》，2026 年第 6 期。DOI：[10.3969/j.issn.1672-9730.2026.06.009](https://doi.org/10.3969/j.issn.1672-9730.2026.06.009)。
+## 中文说明
+
+### 论文信息
+
+- 范伟伦，《基于 SA-IPSO 融合算法的无人机航路规划》，《舰船电子工程》，2026 年第 6 期。
+- 英文题名：*UAV Route Planning Based on SA-IPSO Algorithm*。
+- DOI: [10.3969/j.issn.1672-9730.2026.06.009](https://doi.org/10.3969/j.issn.1672-9730.2026.06.009)
+- **代码定位：** 基于公开论文重建 SA-IPSO 优化机制，使用可公开复现的民用地形、障碍物及限制空域场景评估。代码不包含雷达、导弹或防空武器威胁模型。
 
 ### 核心算法
 
-重建论文提出的五项机制：① 粒子群 PSO；② 退火接受的个体最优更新；③ 免疫记忆；④ 基于亲和力与浓度反馈的免疫选择；⑤ 停滞触发的模拟退火搜索。提供 PSO、IPSO、SA-IPSO 三种算法对照与固定随机种子复现。
-
-保留论文给出的关键参数：种群规模 20、记忆规模 10、学习因子 2.05、惯性权重 0.9 至 0.4、速度上限 20、停滞代数 2、精度阈值 1e-4、退火温度 2000 至 10、降温率 0.8、起点 (10,10,10)、终点 (190,190,10)。论文最大迭代次数为 1000，首轮验证采用 **120 次迭代**。
+1. 粒子群优化：惯性权重从 0.9 线性下降到 0.4，个体 / 全局学习因子均为 2.05，速度上限 20。
+2. 退火个体最优更新：在严格保存历史最优的同时，允许以 Metropolis 概率接受劣于当前个体记录的候选。
+3. 免疫记忆：维护最多 10 个不同的优秀解；通过亲和力和个体适应度差异选择候选，并对劣势粒子注入扰动后的记忆解。
+4. 联合搜索：连续 2 代改进量不超过 1e-4 时，对当前最优解启动模拟退火邻域搜索。
+5. 任务权重：使用论文两组外层 AHP 系数，但**风险和约束项对应的是另外定义的民用基准代价**，因此不能据此复核原论文数值。
 
 惯性权重：
 
 $$
-\omega_t=\omega_{\max}-\frac{\omega_{\max}-\omega_{\min}}{t_{\max}}t
+\omega_t = \omega_{\max} - \frac{\omega_{\max}-\omega_{\min}}{t_{\max}} t
 $$
 
 免疫选择概率：
 
 $$
-A_i=\frac{1}{F_i+\delta},\quad
-D_i=\left(\sum_j|F_i-F_j|\right)^{-1}
+A_i = \frac{1}{F_i+\delta},\qquad
+D_i = \left(\sum_j |F_i-F_j|\right)^{-1}
 $$
 
 $$
-P_i=\beta\frac{A_i}{\sum_j A_j}+(1-\beta)\frac{D_i^{-1}}{\sum_j D_j^{-1}},\quad \beta=0.5
+P_i = \beta \frac{A_i}{\sum_j A_j} + (1-\beta)\frac{D_i^{-1}}{\sum_j D_j^{-1}},\qquad \beta=0.5
 $$
 
-其中零除保护属于复现实现细节，非论文原文声明。
+当适应度全部相同时，概率退化为均匀分布，以避免除零；论文未说明该边界情况如何处理。
 
-### 实验数据（本项目运行结果，并非原论文数值）
+民用基准的综合代价：
 
-120 次迭代、种子 0–4、2 种任务权重、3 种算法，共 **30 次运行**；下表为适应度 mean ± sample std，越小越好。
+$$
+J = \lambda_1 J_{\mathrm{length}} + \lambda_2 J_{\mathrm{exposure}} + \lambda_3 J_{\mathrm{constraint}}
+$$
 
-| 任务 | PSO | IPSO | SA-IPSO |
-|---|---:|---:|---:|
-| 迅速抵达权重 | 0.86488 ± 0.04912 | **0.85593 ± 0.06611** | 0.86865 ± 0.06639 |
-| 安全优先权重 | 0.14760 ± 0.01798 | 0.14295 ± 0.01300 | **0.14109 ± 0.01355** |
+其中 exposure 是地形接近 / 民用限制空域侵入的软风险惩罚。**这不是军用威胁函数的替代实现，也不应视为实飞安全认证。**
 
-**结论：** 当前小样本下 SA-IPSO 并不稳定优于 PSO/IPSO。三种算法的目标函数评价次数不同，不能据此宣称等预算优越性或统计显著性。输出路径使用软约束，可能存在未满足的安全净空或机动性限制；不得直接用于飞行。
 
-| 路径：快速任务 | 路径：安全优先 |
-| --- | --- |
-| ![](docs/figures/route_fast.svg) | ![](docs/figures/route_safe.svg) |
+### v0.2.0：等函数评价预算独立实验（2026-10-26）
 
-| 收敛：快速任务 | 收敛：安全优先 |
-| --- | --- |
-| ![](docs/figures/convergence_fast.svg) | ![](docs/figures/convergence_safe.svg) |
+**已完成 192 组实际运行：** 12 个配对种子 × 2 个民用地形 × 2 种任务权重 × 4 种算法，每个算法严格限额 **500 次函数评价**。新对照为 PSO、IPSO、原数值温度 SA-IPSO 与按初始适应度尺度校准温度的 SA-IPSO。
 
-### 使用方法
+| 场景与任务 | PSO | IPSO | SA-IPSO Raw | SA-IPSO Calibrated |
+|---|---:|---:|---:|---:|
+| reference / fast | 1.07727 | 1.12412 | 1.16364 | 1.10019 |
+| reference / safe | 0.21715 | 0.20495 | 0.22130 | 0.21006 |
+| holdout / fast | 1.26071 | 1.30874 | 1.36704 | 1.31424 |
+| holdout / safe | 0.22291 | 0.21465 | 0.22776 | 0.21989 |
+
+**实证发现：** 在固定 FE 下，原始温度的 SA-IPSO 在快速任务明显逊于 PSO；温度校准没有确立稳定领先。全部 192 条路径仅 2 条通过密集采样约束检查，故这些优化结果**不能视为可执行航路**。数据来自独立民用场景，与论文原 MATLAB 数据不等价。
+
+![Equal-budget convergence](docs/equal_budget/fe_convergence_reference_fast.svg)
+
+![Independent terrain comparison](docs/equal_budget/fe_convergence_holdout_safe.svg)
+
+![Feasibility rate](docs/equal_budget/feasibility_by_task.svg)
+
+原始数据、配对区间、实验差异、所有图表和未来实验方案：[**v0.2.0 完整实验报告（中英文）**](docs/EXPERIMENT-v0.2.0.md)。
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+python -m saipso_uav.study --budget 500 --seeds 100 101 102 103 104 105 106 107 108 109 110 111 --output docs/equal_budget
+```
+
+### 可视化结果
+
+120 次迭代、5 个配对种子（0–4），共 30 次独立的算法运行。图片、逐代曲线、单次指标和汇总 JSON 在 [`docs/figures/`](docs/figures/) 中；图表由 `saipso-uav` 命令生成。
+
+| 任务权重 | PSO (mean ± std) | IPSO (mean ± std) | SA-IPSO (mean ± std) |
+| --- | ---: | ---: | ---: |
+| 快速任务 | 0.86488 ± 0.04912 | **0.85593 ± 0.06611** | 0.86865 ± 0.06639 |
+| 安全任务 | 0.14760 ± 0.01798 | 0.14295 ± 0.01300 | **0.14109 ± 0.01355** |
+
+**解释：** 目标值越小越好。此组小样本中，SA-IPSO **并未稳定优于** 两个对照；安全任务的均值有微弱优势，不能由此推断统计显著性。三者迭代数相同但评价预算不同（SA-IPSO 额外进行退火评价），故表格不构成严格的等计算预算性能比较。未来应当在等函数评价预算、更多随机种子、独立场景上重新验证。
+
+![Fast task route](docs/figures/route_fast.svg)
+
+![Safe task route](docs/figures/route_safe.svg)
+
+![Fast task convergence](docs/figures/convergence_fast.svg)
+
+![Safe task convergence](docs/figures/convergence_safe.svg)
+
+### 运行方式
 
 ```bash
 python -m pip install -e ".[test]"
@@ -60,16 +105,40 @@ python -m pytest -q
 python -m saipso_uav --iterations 120 --seeds 0 1 2 3 4 --output results
 ```
 
-源代码：`src/saipso_uav/`。测试：`tests/`。逐种子指标：[`metrics.csv`](docs/figures/metrics.csv)，曲线 CSV 与汇总 JSON：[`docs/figures/`](docs/figures/)。更多说明：[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md)。
-
-### 复现范围
-
-论文未完整公开地图参数、代价函数惩罚细节、退火邻域、精英记忆操作及随机种子。因此采用固定 x、优化 y/z 的 10 个中间航路点，以及**自主构造的民用山体、地形净空、限制空域**基准；未实现针对雷达、导弹或防空火力的规避模型。图表并非原论文图 3–8 的复刻。此项目为数值优化研究原型，不提供真实飞行安全保证。
+论文列出的最大迭代次数为 1000；这里 120 迭代仅用于首版小规模基准测试。完整参数表、复现差异和边界情况请见 [复现说明](docs/REPRODUCIBILITY.md)。图中地形与限制空域属于本项目自定义合成基准，**并非原文图 3–图 8**。路径惩罚为软约束，不保证所有输出满足实飞标准。
 
 ## English
 
-Independent Python/NumPy reconstruction of SA-IPSO's optimization mechanisms based on Fan Weilun (2026), using a **civilian** 3-D terrain and restricted-airspace benchmark, not military threat evasion. Original MATLAB source, exact maps, and all implementation details were not published; our mapping, penalty and neighborhood definitions are disclosed adaptations.
+**v0.2.0 update:** Exactly 500 objective evaluations per arm across 192 paired-seed runs on independent synthetic civilian terrains; four arms include a clearly attributed original temperature-calibration adaptation. Raw SA-IPSO underperformed PSO on the fast objective; 2/192 routes passed densely sampled feasibility checks. See the [complete bilingual report](docs/EXPERIMENT-v0.2.0.md) and [raw evidence](docs/equal_budget/).
 
-Run `pip install -e ".[test]"`, `pytest -q`, then `python -m saipso_uav --iterations 120 --seeds 0 1 2 3 4 --output results`. Five-seed fitness means for PSO/IPSO/SA-IPSO: fast `0.86488/0.85593/0.86865`, safe `0.14760/0.14295/0.14109`. Evaluation budgets are **unequal**, so the data do not establish SA-IPSO superiority. Source code, raw CSV, SVG figures, and test evidence are provided; no routes are flight-certified.
+This is an **independent, civilian benchmark reconstruction** of the SA-IPSO search mechanisms reported by Fan Weilun (2026). Implemented in Python/NumPy with optional Matplotlib visualizations, paired-seed PSO and IPSO controls, pytest tests, and GitHub Actions CI. No original MATLAB source or exact experimental scene is claimed.
 
-Versioned source distributions and notes are managed through GitHub Releases. Repository code is MIT-licensed; the article's copyright remains with its publisher/authors.
+The paper's start `(10,10,10)`, goal `(190,190,10)`, population `20`, memory `10`, `c1=c2=2.05`, inertia `0.9→0.4`, velocity bound `20`, stagnation limit `2`, precision `1e-4`, SA `T0=2000`, `Tmin=10`, cooling `0.8`, and task weights are retained. The fixed-x, optimizable-y/z representation (20 variables for 10 intermediate waypoints), terrain, civilian restricted zones, and unspecified SA/archive operators are **implementation assumptions**, not paper claims.
+
+To reproduce the local experiment:
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+saipso-uav --iterations 120 --seeds 0 1 2 3 4 --output results
+```
+
+Mean fitness is 0.86488 / 0.85593 / 0.86865 for PSO/IPSO/SA-IPSO in fast mode, and 0.14760 / 0.14295 / 0.14109 in safe mode. The algorithms consumed unequal numbers of fitness evaluations, and the 5-seed results do not establish superiority. See the [experimental protocol and limitations](docs/REPRODUCIBILITY.md) and machine-readable outputs in `docs/figures/`.
+
+### Project map
+
+```text
+src/saipso_uav/model.py       Civilian benchmark, encoding, cost and constraints
+src/saipso_uav/optimizer.py   PSO / IPSO / SA-IPSO and immune selection
+src/saipso_uav/cli.py         Repeatable paired-seed experiments and CSV/JSON
+src/saipso_uav/visualize.py   SVG plot generation
+tests/                       Determinism, boundary and integration checks
+docs/figures/                 Output figures and raw experiment summaries
+.github/workflows/           CI and version-tag release publication
+```
+
+### Provenance and permitted scope
+
+Publication and algorithm attribution belong to their respective authors. This repository is an independent, educational numerical implementation. It does **not** reproduce military sensor or air-defense threat avoidance, and its routes are not suitable for operational flight without validated terrain, applicable airspace regulation checks, a feasible trajectory generator, and a flight-control safety review.
+
+Distributed under the MIT license for repository code only; the original paper is **not** redistributed.
