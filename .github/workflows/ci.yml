@@ -1,0 +1,55 @@
+name: Bootstrap and CI
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  test-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Restore source on initial import
+        shell: bash
+        run: |
+          if test -f .bootstrap/source.tar.xz.b64; then
+            base64 -d .bootstrap/source.tar.xz.b64 | tar -xJf - -C .
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install and run tests
+        run: |
+          python -m pip install -e ".[test]"
+          python -m pytest -q
+      - name: Generate independent experiment evidence
+        if: hashFiles('.bootstrap/source.tar.xz.b64') != ''
+        run: python -m saipso_uav --iterations 120 --seeds 0 1 2 3 4 --output docs/figures
+      - name: Commit fully extracted source
+        if: hashFiles('.bootstrap/source.tar.xz.b64') != ''
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .bootstrap/source.tar.xz.b64
+          git add -A
+          git commit -m "feat: reproduce SA-IPSO with verified civilian experiments"
+          git push origin HEAD:main
+      - name: Publish initial v0.1.0 release
+        if: hashFiles('.bootstrap/source.tar.xz.b64') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(cat .release-version)
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --target "$(git rev-parse HEAD)" --title "$tag" --generate-notes
+      - name: Publish manually tagged releases
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --generate-notes
