@@ -1,0 +1,118 @@
+{
+  "provenance": "independent civilian scenario; not exact paper reproduction",
+  "config": {
+    "population": 20,
+    "memory": 10,
+    "iterations": 120,
+    "c1": 2.05,
+    "c2": 2.05,
+    "inertia_max": 0.9,
+    "inertia_min": 0.4,
+    "velocity_max": 20.0,
+    "stagnation_iterations": 2,
+    "stagnation_epsilon": 0.0001,
+    "sa_temperature": 2000.0,
+    "sa_terminal": 10.0,
+    "sa_cooling": 0.8,
+    "sa_trials_per_level": 2,
+    "sa_max_levels": 24,
+    "sa_perturbation": 0.08,
+    "memory_injections": 2,
+    "immune_beta": 0.5
+  },
+  "scenario": {
+    "name": "civilian-mountains",
+    "hills": [
+      [
+        76.0,
+        92.0,
+        170.0,
+        23.0
+      ],
+      [
+        137.0,
+        135.0,
+        380.0,
+        17.0
+      ]
+    ],
+    "zones": [
+      [
+        62.0,
+        145.0,
+        16.0
+      ],
+      [
+        155.0,
+        52.0,
+        18.0
+      ]
+    ],
+    "world_xy": [
+      0.0,
+      200.0
+    ],
+    "max_altitude": 450.0,
+    "min_clearance": 10.0,
+    "comfort_clearance": 32.0,
+    "min_segment": 3.0,
+    "max_turn_degrees": 85.0,
+    "max_climb_degrees": 60.0,
+    "max_length_factor": 3.0,
+    "waypoint_count": 10,
+    "samples_per_segment": 7,
+    "start": [
+      10.0,
+      10.0,
+      10.0
+    ],
+    "goal": [
+      190.0,
+      190.0,
+      10.0
+    ]
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "summary": {
+    "fast": {
+      "pso": {
+        "n": 5,
+        "mean_fitness": 0.8648816879348813,
+        "std_fitness_ddof1": 0.04912328576932222
+      },
+      "ipso": {
+        "n": 5,
+        "mean_fitness": 0.8559260412458076,
+        "std_fitness_ddof1": 0.0661069426373921
+      },
+      "saipso": {
+        "n": 5,
+        "mean_fitness": 0.8686472061474971,
+        "std_fitness_ddof1": 0.0663941289387319
+      }
+    },
+    "safe": {
+      "pso": {
+        "n": 5,
+        "mean_fitness": 0.14760484012873576,
+        "std_fitness_ddof1": 0.017982867229482762
+      },
+      "ipso": {
+        "n": 5,
+        "mean_fitness": 0.14294753276607985,
+        "std_fitness_ddof1": 0.01300174817617995
+      },
+      "saipso": {
+        "n": 5,
+        "mean_fitness": 0.1410898130425972,
+        "std_fitness_ddof1": 0.013553997037273252
+      }
+    }
+  }
+}

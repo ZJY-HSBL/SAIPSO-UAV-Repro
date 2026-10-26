@@ -1,0 +1,10 @@
+Metadata-Version: 2.4
+Name: saipso-uav-repro
+Version: 0.1.0
+Summary: SA-IPSO algorithmic reproduction on civilian 3D UAV route-planning benchmarks
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: matplotlib>=3.7
+Provides-Extra: test
+Requires-Dist: pytest>=7; extra == "test"
