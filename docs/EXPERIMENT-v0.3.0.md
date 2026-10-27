@@ -113,3 +113,9 @@ python -m saipso_uav.study_v03 --budget 500 --seeds $(seq 300 329) --output docs
 ```
 
 Machine-readable evidence: [`metrics.csv`](feasibility_v03/metrics.csv) and [`summary.json`](feasibility_v03/summary.json). Complete vector figures including all six scene-task combinations are in [`feasibility_v03/`](feasibility_v03/). No result is supplied as a real-flight recommendation.
+
+## Remote reproduction / 远端复现实证
+
+- GitHub Actions independently completed all 1,080 runs with exactly 500 combined objective/constraint evaluations per run and emitted `docs/feasibility_v03/metrics.csv`, `summary.json`, and 13 SVG charts on 2026-10-27.
+- The full source + generated evidence was pushed to the main branch by commit `61f2b7fa1bdf086d346fcce140eca02bd0d2e674`. The remote Python 3.10 and Python 3.12 test stages passed before the push.
+- Official releases are produced separately by the repository's permanent `CI and Releases` workflow; verification of the experiments and publication of a GitHub Release are distinct steps.
