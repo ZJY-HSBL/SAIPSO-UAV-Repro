@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.bootstrap/v03.part05'
+      - '.github/workflows/v03-import.yml'
 permissions:
   contents: write
 jobs:
@@ -47,7 +48,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .bootstrap/v03.part* .github/workflows/v03-import.yml
+          git restore .github/workflows/ci.yml
+          git rm .bootstrap/v03.part*
           git add -A
           git commit -m "feat: v0.3 feasibility-first study with 1080 equal-FE trials"
           git push origin HEAD:main
