@@ -2,7 +2,7 @@ name: Import and verify v0.3.0
 on:
   push:
     paths:
-      - '.bootstrap/v03.tar.xz.b64'
+      - '.bootstrap/v03.part05'
 permissions:
   contents: write
 jobs:
@@ -15,7 +15,7 @@ jobs:
           persist-credentials: true
       - name: Restore verified civilian source
         run: |
-          base64 -d .bootstrap/v03.tar.xz.b64 | tar -xJf - -C .
+          cat .bootstrap/v03.part* | base64 -d | tar -xJf - -C .
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .bootstrap/v03.tar.xz.b64 .github/workflows/v03-import.yml
+          git rm .bootstrap/v03.part* .github/workflows/v03-import.yml
           git add -A
           git commit -m "feat: v0.3 feasibility-first study with 1080 equal-FE trials"
           git push origin HEAD:main
