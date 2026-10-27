@@ -10,6 +10,8 @@ src/saipso_uav/model.py
 src/saipso_uav/optimizer.py
 src/saipso_uav/paper_core.py
 src/saipso_uav/paper_study.py
+src/saipso_uav/route3d.py
+src/saipso_uav/route3d_study.py
 src/saipso_uav/study.py
 src/saipso_uav/study_plots.py
 src/saipso_uav/study_v03.py
@@ -27,3 +29,5 @@ tests/test_feasible_v03.py
 tests/test_model.py
 tests/test_optimizer.py
 tests/test_paper_core.py
+tests/test_route3d.py
+tests/test_route3d_study.py

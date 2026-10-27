@@ -1,0 +1,1036 @@
+{
+  "version": "v0.5.0",
+  "scope": "civilian benchmark; full xyz vs fixed x 10-interior-waypoint representation",
+  "author_experiment_reproduced": false,
+  "source_paper": "Fan Weilun, Ship Electronic Engineering 2026 (6)",
+  "total_runs": 192,
+  "equal_fe_runs": 192,
+  "evaluation_budget": 200,
+  "seeds": [
+    800,
+    801,
+    802,
+    803
+  ],
+  "task_weights": {
+    "fast": {
+      "length": 0.637,
+      "exposure": 0.2583,
+      "constraints": 0.1047
+    },
+    "safe": {
+      "length": 0.0879,
+      "exposure": 0.6694,
+      "constraints": 0.2426
+    }
+  },
+  "optimization": {
+    "population": 20,
+    "memory": 10,
+    "dimension": 30,
+    "iterations": 1000,
+    "c1": 2.05,
+    "c2": 2.05,
+    "w_max": 0.9,
+    "w_min": 0.4,
+    "vmax": 20.0,
+    "stagnation": 2,
+    "epsilon": 0.0001,
+    "t0": 2000.0,
+    "t_end": 10.0,
+    "alpha": 0.8,
+    "beta": 0.5,
+    "sa_trials_per_level": 2,
+    "sa_step_fraction": 0.08,
+    "memory_injections": 2
+  },
+  "scene_definitions": {
+    "reference": {
+      "name": "civilian-mountains",
+      "hills": [
+        [
+          76.0,
+          92.0,
+          170.0,
+          23.0
+        ],
+        [
+          137.0,
+          135.0,
+          380.0,
+          17.0
+        ]
+      ],
+      "zones": [
+        [
+          62.0,
+          145.0,
+          16.0
+        ],
+        [
+          155.0,
+          52.0,
+          18.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    },
+    "frozen_novel": {
+      "name": "frozen-novel-scene",
+      "hills": [
+        [
+          48.0,
+          90.0,
+          205.0,
+          24.0
+        ],
+        [
+          112.0,
+          135.0,
+          270.0,
+          22.0
+        ],
+        [
+          152.0,
+          154.0,
+          130.0,
+          17.0
+        ]
+      ],
+      "zones": [
+        [
+          52.0,
+          57.0,
+          19.0
+        ],
+        [
+          152.0,
+          67.0,
+          23.0
+        ],
+        [
+          110.0,
+          170.0,
+          13.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    }
+  },
+  "encodings": [
+    "full_xyz",
+    "fixed_x"
+  ],
+  "initializations": [
+    "straight",
+    "corridor"
+  ],
+  "algorithms": [
+    "pso",
+    "ipso",
+    "saipso"
+  ],
+  "audit_samples_per_segment": 201,
+  "optimization_samples_per_segment": 13,
+  "summary": [
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 15.846722103545126,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 6.350400494761768,
+      "median_violation": 1.137534544032117
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 15.086943848777231,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.110178749529661,
+      "median_violation": 1.0741586729121146
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 15.674022322222886,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 6.5231002760840076,
+      "median_violation": 1.086819045670432
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 16.51559720379825,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 8.407549971672976,
+      "median_violation": 1.1941517104158068
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 16.990707830762965,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.932439344708266,
+      "median_violation": 1.2145690964980518
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 17.61683504220044,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.306312133270788,
+      "median_violation": 1.2474034313524927
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 0.8929264132023005,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7183541238698493,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 0.9049910557293405,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7062894813428092,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 0.9246845049828885,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.6865960320892615,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 0.8978225628847648,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7935484441849989,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 0.8986433382405513,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7927276688292123,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 0.8980475159891792,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7933234910805844,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 13.892311671721547,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 6.312482297376315,
+      "median_violation": 1.137534544032117
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 13.987247976598358,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 6.217545992499505,
+      "median_violation": 1.1218594139587388
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 13.54050064711052,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 6.664293321987343,
+      "median_violation": 1.096169014816633
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 15.539500703204858,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.548141417315309,
+      "median_violation": 1.2365685233792578
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 15.146952358811852,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.940689761708313,
+      "median_violation": 1.2112272602349656
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 15.008155496383775,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 8.07948662413639,
+      "median_violation": 1.1863404801494826
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 0.1402619252655684,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.6178586629478935,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 0.14188773071176589,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.6162328575016961,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 0.14510994993649787,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.613010638276964,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 0.13780600642304233,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.7071070097867636,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 0.14079187857692388,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.704121137632882,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 0.14201846645055577,
+      "feasible_count": 4,
+      "feasible_rate": 1.0,
+      "mean_improvement": 0.70289454975925,
+      "median_violation": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 4.794229902251605,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.94007308343517,
+      "median_violation": 0.23376589438379985
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 5.0681296935234865,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.666173292163286,
+      "median_violation": 0.24198084155652838
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 6.308719665722667,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 10.425583319964106,
+      "median_violation": 0.33596433277671467
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 4.594039788920272,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 12.361514201097817,
+      "median_violation": 0.22173640015898677
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 5.477212192156676,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.478341797861413,
+      "median_violation": 0.2159936660309228
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 5.419067199790097,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.536486790227992,
+      "median_violation": 0.2984522277218683
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 3.8886642959526836,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.371079881847271,
+      "median_violation": 0.20955534222921401
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 4.125846188081025,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.133897989718929,
+      "median_violation": 0.2594037124679376
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 4.140308474137946,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.119435703662008,
+      "median_violation": 0.22594021032070813
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 8.300848266809812,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 3.8936371078497602,
+      "median_violation": 0.6238109286881721
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 8.308915559816025,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 3.8855698148435467,
+      "median_violation": 0.6237168466560064
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 8.228941678958424,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 3.965543695701148,
+      "median_violation": 0.6076119850715205
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 3.9011939121855708,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.486734794839052,
+      "median_violation": 0.267547375306445
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 3.592794629299278,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.795134077725344,
+      "median_violation": 0.21505935127242898
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 4.324183377202855,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.063745329821767,
+      "median_violation": 0.2229739969489956
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 3.4639801897402362,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 12.1468706157541,
+      "median_violation": 0.2401439049216496
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 4.0028727260408274,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 11.60797807945351,
+      "median_violation": 0.2417685333890636
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 4.811022708377898,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 10.799828097116437,
+      "median_violation": 0.3440186885164233
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 3.149136681824985,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.403985964823008,
+      "median_violation": 0.20995814093240783
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 3.2321941243597565,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.320928522288236,
+      "median_violation": 0.22552623281864598
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "full_xyz",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 3.2854235394608886,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 7.267699107187104,
+      "median_violation": 0.24050923547379355
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_objective": 7.603291586666264,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 3.9865888712352566,
+      "median_violation": 0.6238105384442391
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_objective": 7.596977947055758,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 3.9929025108457616,
+      "median_violation": 0.623695521138984
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "encoding": "fixed_x",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_objective": 7.538050878235248,
+      "feasible_count": 0,
+      "feasible_rate": 0.0,
+      "mean_improvement": 4.051829579666272,
+      "median_violation": 0.60787470293374
+    }
+  ],
+  "paired_contrasts": [
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": -0.6688751002531275,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -1.9037639819857315,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": -1.9428127199775553,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": -0.004896149682464324,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.006347717488789151,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.026636988993709254,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": -1.6471890314833093,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -1.1597043822134947,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": -1.467654849273257,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.002455918842526085,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.001095852134841993,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.003091483485942105,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.2001901133313323,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -0.40908249863319024,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "straight",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.8896524659325695,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.412183970857129,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.183069371735001,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "initialization": "corridor",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.0886332048204785,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": 0.4372137224453353,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -0.41007809674154877,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "straight",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": -0.4868393311750423,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "pso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.454154904841278,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "ipso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.364783822696001,
+      "feasibility_full_minus_fixed": 0.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "initialization": "corridor",
+      "algorithm": "saipso",
+      "n": 4,
+      "mean_full_minus_fixed": -4.25262733877436,
+      "feasibility_full_minus_fixed": 0.0
+    }
+  ],
+  "limitations": [
+    "The paper encodes each intermediate waypoint in 3D; 30 controls for 10 intermediate points are an explicit interpretation, not author source.",
+    "Full x coordinates vary within +/-32% of nominal x spacing, not unrestricted physical coordinates.",
+    "The fixed-x ablation keeps 30 controls and ignores 10 neutral x controls to share initial RNG; the added neutral dimensions may disadvantage the ablation.",
+    "Two corridor/straight baselines are chosen heuristic initializations; some results may be caused by the initialization rather than optimization.",
+    "The same 500/600 FE budget does not equalize CPU time or initialization feasibility across baselines.",
+    "Published paper has five flight constraints; study separately adds terrain clearance, civilian restricted-airspace and height ceiling.",
+    "Civilian exposure is not radar, missile or artillery threat and should not be compared numerically to paper figures.",
+    "Terrain clearance is sampled, not mathematically proven between samples; circular-zone segment intersection is exact.",
+    "Reference and frozen_novel are both previously inspected in v0.3.0, NOT statistically independent unseen terrain.",
+    "Only exploratory paired means; sample size insufficient for claims of significance or general superiority.",
+    "Motion constraints are simplified polyline proxies; flight dynamics and real-world safety are not certified."
+  ]
+}
