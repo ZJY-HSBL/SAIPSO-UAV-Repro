@@ -1,0 +1,1052 @@
+{
+  "version": "v0.3.0",
+  "purpose": "civilian feasibility priority, NOT military evasion or flight qualification",
+  "method_status": "independent algorithm extension; not original paper formulation",
+  "seed_origin": "fresh seeds 300..329, selected before v0.3 evaluation",
+  "objective_evaluations_per_run": 500,
+  "total_runs": 1080,
+  "seeds": [
+    300,
+    301,
+    302,
+    303,
+    304,
+    305,
+    306,
+    307,
+    308,
+    309,
+    310,
+    311,
+    312,
+    313,
+    314,
+    315,
+    316,
+    317,
+    318,
+    319,
+    320,
+    321,
+    322,
+    323,
+    324,
+    325,
+    326,
+    327,
+    328,
+    329
+  ],
+  "arms": [
+    "soft-saipso",
+    "cd-saipso",
+    "cd-seed-saipso",
+    "cd-seed-repair-pso",
+    "cd-seed-repair-ipso",
+    "cd-seed-repair-saipso"
+  ],
+  "runtime": {
+    "python": "3.12.15",
+    "numpy": "2.5.4",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39"
+  },
+  "search_constraint_samples_per_segment": 61,
+  "audit_constraint_samples_per_segment": 201,
+  "scenarios": {
+    "reference": {
+      "name": "civilian-mountains",
+      "hills": [
+        [
+          76.0,
+          92.0,
+          170.0,
+          23.0
+        ],
+        [
+          137.0,
+          135.0,
+          380.0,
+          17.0
+        ]
+      ],
+      "zones": [
+        [
+          62.0,
+          145.0,
+          16.0
+        ],
+        [
+          155.0,
+          52.0,
+          18.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    },
+    "development": {
+      "name": "held-out-terrain",
+      "hills": [
+        [
+          53.0,
+          105.0,
+          195.0,
+          21.0
+        ],
+        [
+          111.0,
+          122.0,
+          275.0,
+          26.0
+        ],
+        [
+          157.0,
+          150.0,
+          145.0,
+          19.0
+        ]
+      ],
+      "zones": [
+        [
+          47.0,
+          53.0,
+          20.0
+        ],
+        [
+          150.0,
+          64.0,
+          25.0
+        ],
+        [
+          128.0,
+          165.0,
+          14.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    },
+    "frozen_novel": {
+      "name": "frozen-novel-scene",
+      "hills": [
+        [
+          48.0,
+          90.0,
+          205.0,
+          24.0
+        ],
+        [
+          112.0,
+          135.0,
+          270.0,
+          22.0
+        ],
+        [
+          152.0,
+          154.0,
+          130.0,
+          17.0
+        ]
+      ],
+      "zones": [
+        [
+          52.0,
+          57.0,
+          19.0
+        ],
+        [
+          152.0,
+          67.0,
+          23.0
+        ],
+        [
+          110.0,
+          170.0,
+          13.0
+        ]
+      ],
+      "world_xy": [
+        0.0,
+        200.0
+      ],
+      "max_altitude": 450.0,
+      "min_clearance": 5.0,
+      "comfort_clearance": 32.0,
+      "min_segment": 3.0,
+      "max_turn_degrees": 85.0,
+      "max_climb_degrees": 60.0,
+      "max_length_factor": 3.0,
+      "waypoint_count": 10,
+      "samples_per_segment": 7,
+      "start": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "goal": [
+        190.0,
+        190.0,
+        10.0
+      ]
+    }
+  },
+  "primary_metric": "independent audited feasibility rate (201 segment samples and exact circular-zone intersections)",
+  "secondary_metrics": [
+    "best feasible objective",
+    "first feasible FE",
+    "constraint violation",
+    "wall time not standardized"
+  ],
+  "summary": [
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 1,
+      "audited_feasible_rate": 0.03333333333333333,
+      "mean_objective_all": 1.0550114054961945,
+      "std_objective_all": 0.10129663582789436,
+      "mean_feasible_objective": 0.8860362821935063,
+      "mean_violation_61": 0.5058238826140601,
+      "median_first_feasible_fe_61": 423.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 4,
+      "audited_feasible_rate": 0.13333333333333333,
+      "mean_objective_all": 1.8184205423604989,
+      "std_objective_all": 0.31379738463871276,
+      "mean_feasible_objective": 1.3830470352599789,
+      "mean_violation_61": 0.21813113607027496,
+      "median_first_feasible_fe_61": 468.5
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.8156708033570504,
+      "std_objective_all": 0.007653759791861115,
+      "mean_feasible_objective": 0.8156708033570504,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.8167980608507079,
+      "std_objective_all": 0.005718040937416956,
+      "mean_feasible_objective": 0.8167980608507079,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.8184874297337523,
+      "std_objective_all": 0.005513706598591202,
+      "mean_feasible_objective": 0.8184874297337523,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.8246823967277168,
+      "std_objective_all": 0.007501787038444549,
+      "mean_feasible_objective": 0.8246823967277168,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 1,
+      "audited_feasible_rate": 0.03333333333333333,
+      "mean_objective_all": 0.20687830875217916,
+      "std_objective_all": 0.04160268800580036,
+      "mean_feasible_objective": 0.14682384471839854,
+      "mean_violation_61": 0.2937360132116078,
+      "median_first_feasible_fe_61": 291.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 3,
+      "audited_feasible_rate": 0.1,
+      "mean_objective_all": 0.3002008857016854,
+      "std_objective_all": 0.07398879180524318,
+      "mean_feasible_objective": 0.22204364075377395,
+      "mean_violation_61": 0.22098596757684696,
+      "median_first_feasible_fe_61": 458.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.1389832899646643,
+      "std_objective_all": 0.002577912252089412,
+      "mean_feasible_objective": 0.1389832899646643,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.13987892922894257,
+      "std_objective_all": 0.00267684640827334,
+      "mean_feasible_objective": 0.13987892922894257,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.1388818608790373,
+      "std_objective_all": 0.0025444570944877063,
+      "mean_feasible_objective": 0.1388818608790373,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.14070578049589394,
+      "std_objective_all": 0.002857240668074407,
+      "mean_feasible_objective": 0.14070578049589394,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 1.0
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 1.284118671716233,
+      "std_objective_all": 0.06554080275062213,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 1.1319544185087482,
+      "median_first_feasible_fe_61": null
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 1.6739453764241834,
+      "std_objective_all": 0.13064748409140914,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 0.20137523858556727,
+      "median_first_feasible_fe_61": null
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 29,
+      "audited_feasible_rate": 0.9666666666666667,
+      "mean_objective_all": 0.9717717176014732,
+      "std_objective_all": 0.009763643692872567,
+      "mean_feasible_objective": 0.9718021157886388,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 29,
+      "audited_feasible_rate": 0.9666666666666667,
+      "mean_objective_all": 0.9552135701430995,
+      "std_objective_all": 0.010208914153337743,
+      "mean_feasible_objective": 0.9547102010736938,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.9531126034906209,
+      "std_objective_all": 0.01043788099958533,
+      "mean_feasible_objective": 0.9531126034906209,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.9599275033256489,
+      "std_objective_all": 0.012084664265889705,
+      "mean_feasible_objective": 0.9599275033256489,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 0.21856059531525013,
+      "std_objective_all": 0.022055476611690075,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 0.27851782208069764,
+      "median_first_feasible_fe_61": null
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 0.2989359775298307,
+      "std_objective_all": 0.07407587761784955,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 0.20401402153802153,
+      "median_first_feasible_fe_61": null
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.17219868610094163,
+      "std_objective_all": 0.010152874612644417,
+      "mean_feasible_objective": 0.17219868610094163,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.170204976020537,
+      "std_objective_all": 0.007909969654068085,
+      "mean_feasible_objective": 0.170204976020537,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.16788178567610249,
+      "std_objective_all": 0.005526266478370349,
+      "mean_feasible_objective": 0.16788178567610249,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 30,
+      "audited_feasible_rate": 1.0,
+      "mean_objective_all": 0.1721579667221494,
+      "std_objective_all": 0.011397202266658439,
+      "mean_feasible_objective": 0.1721579667221494,
+      "mean_violation_61": 0.0,
+      "median_first_feasible_fe_61": 4.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 1.0734797291288543,
+      "std_objective_all": 0.09804817699949157,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 0.9552693563892797,
+      "median_first_feasible_fe_61": 416.5
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 3,
+      "audited_feasible_rate": 0.1,
+      "mean_objective_all": 1.526869667243003,
+      "std_objective_all": 0.191704741944235,
+      "mean_feasible_objective": 1.3611847807017579,
+      "mean_violation_61": 0.13123589963818585,
+      "median_first_feasible_fe_61": 420.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 20,
+      "audited_feasible_rate": 0.6666666666666666,
+      "mean_objective_all": 1.236101678005127,
+      "std_objective_all": 0.07183679852018182,
+      "mean_feasible_objective": 1.2112967003967106,
+      "mean_violation_61": 0.003598658296846934,
+      "median_first_feasible_fe_61": 365.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 15,
+      "audited_feasible_rate": 0.5,
+      "mean_objective_all": 1.237419670302365,
+      "std_objective_all": 0.03858944015906755,
+      "mean_feasible_objective": 1.2258675849893166,
+      "mean_violation_61": 0.008555341431332195,
+      "median_first_feasible_fe_61": 426.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 9,
+      "audited_feasible_rate": 0.3,
+      "mean_objective_all": 1.2379174056798308,
+      "std_objective_all": 0.04356385401286652,
+      "mean_feasible_objective": 1.2226587689924426,
+      "mean_violation_61": 0.02652539475806633,
+      "median_first_feasible_fe_61": 341.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 9,
+      "audited_feasible_rate": 0.3,
+      "mean_objective_all": 1.2366446488018723,
+      "std_objective_all": 0.04513184612654993,
+      "mean_feasible_objective": 1.227293997277002,
+      "mean_violation_61": 0.041543296051102976,
+      "median_first_feasible_fe_61": 241.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "soft-saipso",
+      "n": 30,
+      "audited_feasible_count": 0,
+      "audited_feasible_rate": 0.0,
+      "mean_objective_all": 0.18138707187243566,
+      "std_objective_all": 0.023470771943599183,
+      "mean_feasible_objective": null,
+      "mean_violation_61": 0.2018185599472411,
+      "median_first_feasible_fe_61": null
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "cd-saipso",
+      "n": 30,
+      "audited_feasible_count": 2,
+      "audited_feasible_rate": 0.06666666666666667,
+      "mean_objective_all": 0.2473759791899831,
+      "std_objective_all": 0.03559869105825309,
+      "mean_feasible_objective": 0.22399871868019017,
+      "mean_violation_61": 0.13486794308303435,
+      "median_first_feasible_fe_61": 416.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "cd-seed-saipso",
+      "n": 30,
+      "audited_feasible_count": 20,
+      "audited_feasible_rate": 0.6666666666666666,
+      "mean_objective_all": 0.27008954913891947,
+      "std_objective_all": 0.04939793126825738,
+      "mean_feasible_objective": 0.253751925370524,
+      "mean_violation_61": 0.0065821612284194435,
+      "median_first_feasible_fe_61": 314.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "cd-seed-repair-pso",
+      "n": 30,
+      "audited_feasible_count": 15,
+      "audited_feasible_rate": 0.5,
+      "mean_objective_all": 0.30094705865468685,
+      "std_objective_all": 0.03170979395326417,
+      "mean_feasible_objective": 0.29160450854387016,
+      "mean_violation_61": 0.008555341431332195,
+      "median_first_feasible_fe_61": 426.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "cd-seed-repair-ipso",
+      "n": 30,
+      "audited_feasible_count": 9,
+      "audited_feasible_rate": 0.3,
+      "mean_objective_all": 0.3000688082124805,
+      "std_objective_all": 0.053624906665096624,
+      "mean_feasible_objective": 0.26916984513914805,
+      "mean_violation_61": 0.02652539475806633,
+      "median_first_feasible_fe_61": 341.0
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "arm": "cd-seed-repair-saipso",
+      "n": 30,
+      "audited_feasible_count": 13,
+      "audited_feasible_rate": 0.43333333333333335,
+      "mean_objective_all": 0.30998495272712395,
+      "std_objective_all": 0.06434099052389651,
+      "mean_feasible_objective": 0.27587127002664646,
+      "mean_violation_61": 0.03053730476011403,
+      "median_first_feasible_fe_61": 395.0
+    }
+  ],
+  "contrasts": [
+    {
+      "scene": "reference",
+      "task": "fast",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.1,
+      "bootstrap_95_exploratory": [
+        -0.03333333333333333,
+        0.23333333333333334
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "fast",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.06666666666666667,
+      "bootstrap_95_exploratory": [
+        -0.06666666666666667,
+        0.2
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "reference",
+      "task": "safe",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.0,
+      "bootstrap_95_exploratory": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.9666666666666667,
+      "bootstrap_95_exploratory": [
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "fast",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.0,
+      "bootstrap_95_exploratory": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "development",
+      "task": "safe",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 1.0,
+      "bootstrap_95_exploratory": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.1,
+      "bootstrap_95_exploratory": [
+        0.0,
+        0.2
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.6666666666666666,
+      "bootstrap_95_exploratory": [
+        0.5,
+        0.8333333333333334
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.5,
+      "bootstrap_95_exploratory": [
+        0.3333333333333333,
+        0.6666666666666666
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.3,
+      "bootstrap_95_exploratory": [
+        0.13333333333333333,
+        0.4666666666666667
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "fast",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.3,
+      "bootstrap_95_exploratory": [
+        0.13333333333333333,
+        0.4666666666666667
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "contrast": "cd-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.06666666666666667,
+      "bootstrap_95_exploratory": [
+        0.0,
+        0.16666666666666666
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "contrast": "cd-seed-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.6666666666666666,
+      "bootstrap_95_exploratory": [
+        0.5,
+        0.8333333333333334
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "contrast": "cd-seed-repair-pso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.5,
+      "bootstrap_95_exploratory": [
+        0.3333333333333333,
+        0.6666666666666666
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "contrast": "cd-seed-repair-ipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.3,
+      "bootstrap_95_exploratory": [
+        0.13333333333333333,
+        0.4666666666666667
+      ]
+    },
+    {
+      "scene": "frozen_novel",
+      "task": "safe",
+      "contrast": "cd-seed-repair-saipso-soft-saipso",
+      "paired_n": 30,
+      "feasibility_gain": 0.43333333333333335,
+      "bootstrap_95_exploratory": [
+        0.26666666666666666,
+        0.6
+      ]
+    }
+  ],
+  "limitations": [
+    "The fixed detour heuristic is domain-specific and is responsible for immediate feasibility in some scenes",
+    "v0.2 holdout was used for development, renamed development here",
+    "frozen_novel scenario synthetic, not real-world independent distribution",
+    "201 samples per straight segment do not formally certify continuous terrain clearance",
+    "fixed evaluation count does not equalize internal CPU cost",
+    "contrast confidence intervals are exploratory and unadjusted for multiplicity"
+  ]
+}

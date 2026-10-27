@@ -1,6 +1,6 @@
 Metadata-Version: 2.4
 Name: saipso-uav-repro
-Version: 0.2.0
+Version: 0.3.0
 Summary: SA-IPSO algorithmic reproduction on civilian 3D UAV route-planning benchmarks
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
@@ -64,6 +64,31 @@ $$
 其中 exposure 是地形接近 / 民用限制空域侵入的软风险惩罚。**这不是军用威胁函数的替代实现，也不应视为实飞安全认证。**
 
 
+### v0.3.0：可行性优先与消融实验 / Feasibility-first study
+
+本版完成 **1,080 次独立实验（30 新种子 × 3 民用合成地形 × 2 任务 × 6 算法）**，每次 **500 次函数及约束联合评价**。53 项自动化测试通过。比较软惩罚、可行性优先、绕行模板初始化、修复、免疫与退火；以 201 点/航段地形采样与精确圆形限制空域线段相交几何检查的最终可行率为主指标。
+
+| 消融组 | 独立验证可行数量（共 180 条） |
+|---|---:|
+| Soft SA-IPSO | **2/180** |
+| CD SA-IPSO | **12/180** |
+| CD + Seed + SA-IPSO | **159/180** |
+| CD + Seed + Repair + PSO | **149/180** |
+| CD + Seed + Repair + IPSO | **138/180** |
+| CD + Seed + Repair + SA-IPSO | **142/180** |
+
+**研究判断：** 初始绕行模板是改善可行率的主要因素，不能把提升归功于 SA-IPSO；在新冻结地形上仍出现显著退化，简单混合修复与额外退火未确立稳定优势。路径仍非实飞认证。完整评价、每项约束的通过率与复现说明见 [v0.3.0 中英文实验报告](docs/EXPERIMENT-v0.3.0.md)。
+
+![Feasibility under equal evaluations](docs/feasibility_v03/feasibility_rate.svg)
+
+![Novel-terrain violation convergence](docs/feasibility_v03/violation_frozen_novel_fast.svg)
+
+```bash
+python -m pip install -e ".[test]"
+python -m pytest -q
+python -m saipso_uav.study_v03 --budget 500 --seeds $(seq 300 329) --output docs/feasibility_v03
+```
+
 ### v0.2.0：等函数评价预算独立实验（2026-10-26）
 
 **已完成 192 组实际运行：** 12 个配对种子 × 2 个民用地形 × 2 种任务权重 × 4 种算法，每个算法严格限额 **500 次函数评价**。新对照为 PSO、IPSO、原数值温度 SA-IPSO 与按初始适应度尺度校准温度的 SA-IPSO。
@@ -122,7 +147,9 @@ python -m saipso_uav --iterations 120 --seeds 0 1 2 3 4 --output results
 
 ## English
 
-**v0.2.0 update:** Exactly 500 objective evaluations per arm across 192 paired-seed runs on independent synthetic civilian terrains; four arms include a clearly attributed original temperature-calibration adaptation. Raw SA-IPSO underperformed PSO on the fast objective; 2/192 routes passed densely sampled feasibility checks. See the [complete bilingual report](docs/EXPERIMENT-v0.2.0.md) and [raw evidence](docs/equal_budget/).
+**v0.3.0 update:** 1,080 budget-matched trials (30 fresh seeds, 3 synthetic terrains, 2 objective weights, 6 ablation arms). Feasibility-first ranking alone has limited effect; corridor-guided seeding dominates feasibility, and fails to fully generalize on the frozen novel scene. New annealing/repair do not establish superiority. See the [full bilingual v0.3.0 report](docs/EXPERIMENT-v0.3.0.md) and [raw SVG/CSV/JSON evidence](docs/feasibility_v03/).
+
+**v0.2.0:** Exactly 500 objective evaluations per arm across 192 paired-seed runs on independent synthetic civilian terrains; four arms include a clearly attributed original temperature-calibration adaptation. Raw SA-IPSO underperformed PSO on the fast objective; 2/192 routes passed densely sampled feasibility checks. See the [complete bilingual report](docs/EXPERIMENT-v0.2.0.md) and [raw evidence](docs/equal_budget/).
 
 This is an **independent, civilian benchmark reconstruction** of the SA-IPSO search mechanisms reported by Fan Weilun (2026). Implemented in Python/NumPy with optional Matplotlib visualizations, paired-seed PSO and IPSO controls, pytest tests, and GitHub Actions CI. No original MATLAB source or exact experimental scene is claimed.
 
@@ -143,6 +170,8 @@ Mean fitness is 0.86488 / 0.85593 / 0.86865 for PSO/IPSO/SA-IPSO in fast mode, a
 ```text
 src/saipso_uav/model.py       Civilian benchmark, encoding, cost and constraints
 src/saipso_uav/optimizer.py   PSO / IPSO / SA-IPSO and immune selection
+src/saipso_uav/feasible.py    Deb feasibility priority, warm-start, repair and ablations
+src/saipso_uav/study_v03.py  30-seed, 3-scene, six-arm equal-FE experiment
 src/saipso_uav/cli.py         Repeatable paired-seed experiments and CSV/JSON
 src/saipso_uav/visualize.py   SVG plot generation
 tests/                       Determinism, boundary and integration checks

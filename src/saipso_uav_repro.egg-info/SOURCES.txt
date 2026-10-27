@@ -5,10 +5,13 @@ src/saipso_uav/__init__.py
 src/saipso_uav/__main__.py
 src/saipso_uav/cli.py
 src/saipso_uav/equal_budget.py
+src/saipso_uav/feasible.py
 src/saipso_uav/model.py
 src/saipso_uav/optimizer.py
 src/saipso_uav/study.py
 src/saipso_uav/study_plots.py
+src/saipso_uav/study_v03.py
+src/saipso_uav/study_v03_plots.py
 src/saipso_uav/validation.py
 src/saipso_uav/visualize.py
 src/saipso_uav_repro.egg-info/PKG-INFO
@@ -18,5 +21,6 @@ src/saipso_uav_repro.egg-info/entry_points.txt
 src/saipso_uav_repro.egg-info/requires.txt
 src/saipso_uav_repro.egg-info/top_level.txt
 tests/test_equal_budget.py
+tests/test_feasible_v03.py
 tests/test_model.py
 tests/test_optimizer.py
