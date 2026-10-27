@@ -51,6 +51,24 @@ $$
 其中 exposure 是地形接近 / 民用限制空域侵入的软风险惩罚。**这不是军用威胁函数的替代实现，也不应视为实飞安全认证。**
 
 
+### v0.4.0：论文算法机制单独核对（最新）
+
+已经按论文 §2.1–§2.5 的机制重写**独立的通用连续优化核心**，不再将 v0.3 的“排名免疫抽样”误写成论文的浓度概率。64 项测试通过；**216 次同等 2500 FE 实验 + 9 次 1000 代实验**，原始 CSV/JSON 和 SVG 一并发布。本轮使用数学函数检验算法机制，**不是原文无人机作战环境的数值复刻**。
+
+| Function | PSO | IPSO | SA-IPSO | SA-IPSO without local SA |
+|---|---:|---:|---:|---:|
+| sphere | 7.2004 | 5.8372 | 3.6030 | 2.1915 |
+| rastrigin | 82.0925 | 73.7775 | 64.9747 | 72.9810 |
+| rosenbrock | 182.9719 | 126.8807 | 71.1774 | 102.1852 |
+
+其中 Sphere 的 `SA-IPSO-no-local-SA` 优于完整 SA-IPSO；Rastrigin 和 Rosenbrock 的完整版本较几个对照均值更低。这意味着局部退火搜索的作用存在问题依赖性，不能一概宣称“混合一定更好”。见 [v0.4.0 详细核查报告](docs/EXPERIMENT-v0.4.0.md)。
+
+![v0.4 SA-IPSO vs ablations](docs/paper_core_v04/rastrigin_fe.svg)
+
+```bash
+python -m saipso_uav.paper_study --budget 2500 --output docs/paper_core_v04
+```
+
 ### v0.3.0：可行性优先与消融实验 / Feasibility-first study
 
 本版完成 **1,080 次独立实验（30 新种子 × 3 民用合成地形 × 2 任务 × 6 算法）**，每次 **500 次函数及约束联合评价**。53 项自动化测试通过。比较软惩罚、可行性优先、绕行模板初始化、修复、免疫与退火；以 201 点/航段地形采样与精确圆形限制空域线段相交几何检查的最终可行率为主指标。
@@ -134,6 +152,8 @@ python -m saipso_uav --iterations 120 --seeds 0 1 2 3 4 --output results
 
 ## English
 
+**v0.4.0 update:** Algorithm-only paper-mechanism audit with 216 equal-FE trials, nine full-1000-iteration runs, 64 tests, source-to-equation traceability and raw SVG/CSV/JSON. See [the v0.4.0 report](docs/EXPERIMENT-v0.4.0.md). The prior ranking-based immune selector is explicitly identified as non-paper faithful.
+
 **v0.3.0 update:** 1,080 budget-matched trials (30 fresh seeds, 3 synthetic terrains, 2 objective weights, 6 ablation arms). Feasibility-first ranking alone has limited effect; corridor-guided seeding dominates feasibility, and fails to fully generalize on the frozen novel scene. New annealing/repair do not establish superiority. See the [full bilingual v0.3.0 report](docs/EXPERIMENT-v0.3.0.md) and [raw SVG/CSV/JSON evidence](docs/feasibility_v03/).
 
 **v0.2.0:** Exactly 500 objective evaluations per arm across 192 paired-seed runs on independent synthetic civilian terrains; four arms include a clearly attributed original temperature-calibration adaptation. Raw SA-IPSO underperformed PSO on the fast objective; 2/192 routes passed densely sampled feasibility checks. See the [complete bilingual report](docs/EXPERIMENT-v0.2.0.md) and [raw evidence](docs/equal_budget/).
@@ -155,6 +175,8 @@ Mean fitness is 0.86488 / 0.85593 / 0.86865 for PSO/IPSO/SA-IPSO in fast mode, a
 ### Project map
 
 ```text
+src/saipso_uav/paper_core.py  Paper-stated core on bounded mathematical functions
+src/saipso_uav/paper_study.py Paired-seed numerical verification and evidence
 src/saipso_uav/model.py       Civilian benchmark, encoding, cost and constraints
 src/saipso_uav/optimizer.py   PSO / IPSO / SA-IPSO and immune selection
 src/saipso_uav/feasible.py    Deb feasibility priority, warm-start, repair and ablations
