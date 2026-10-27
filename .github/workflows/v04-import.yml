@@ -1,0 +1,61 @@
+name: Import verified SA-IPSO v0.4.0
+on:
+  push:
+    paths:
+      - '.bootstrap/v04.tar.xz.b64'
+permissions:
+  contents: write
+jobs:
+  verify-import-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Restore source package
+        run: |
+          base64 -d .bootstrap/v04.tar.xz.b64 | tar -xJf - -C .
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Verify Python 3.10
+        run: |
+          python -m pip install -e ".[test]"
+          python -m pytest -q
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Python 3.12
+        run: |
+          python -m pip install -e ".[test]"
+          python -m pytest -q
+      - name: Independently regenerate 225 experiment runs and SVG evidence
+        run: |
+          python -m saipso_uav.paper_study --budget 2500 --seeds $(seq 700 711) --output docs/paper_core_v04
+          python - <<'PY'
+          import csv,json
+          from pathlib import Path
+          p=Path('docs/paper_core_v04')
+          j=json.loads((p/'summary.json').read_text())
+          assert j['total_runs']==225, j['total_runs']
+          assert j['equal_fe_runs']==216 and j['fixed_iteration_runs']==9
+          rows=list(csv.DictReader((p/'metrics.csv').open()))
+          assert len(rows)==225
+          assert all(int(r['fe'])==2500 for r in rows if r['protocol']=='equal_fe')
+          assert all(int(r['iterations'])==1000 for r in rows if r['protocol']=='paper_1000_iterations')
+          assert all((p/f'{f}_fe.svg').stat().st_size>1000 for f in ('sphere','rastrigin','rosenbrock'))
+          PY
+      - name: Commit independently verified source and evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .bootstrap/v04.tar.xz.b64 .github/workflows/v04-import.yml
+          git add -A
+          git commit -m "feat: v0.4 paper-mechanism fidelity audit and 225 mathematical trials"
+          git push origin HEAD:main
+      - name: Publish verified Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view v0.4.0 >/dev/null 2>&1 || gh release create v0.4.0 --target "$(git rev-parse HEAD)" --title "v0.4.0 - Paper mechanism verification" --notes "Isolated paper-parameter optimization core, corrected affinity-and-concentration immune selector, 64 pytest tests, 216 strictly equal-FE evaluations plus nine full 1000-iteration trials on generic numerical functions, raw CSV/JSON and SVG evidence. Original MATLAB route results are not claimed."
